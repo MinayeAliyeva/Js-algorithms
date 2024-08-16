@@ -99,7 +99,7 @@ console.log("test,", findTrulyNumbers2([true, false, false, true, false]));
 //Remove dublicates from an array
 //s1
 const removeDublicates = (arr) => {
-  return arr?.filter((el, i) => arr.indexOf(el) == i);
+  return arr?.filter((el, i) => arr.indexOf(el) === i);
 };
 console.log("removeDublicates", removeDublicates([1, 2, 2, 3, 4, "banana", 1]));
 //s2
@@ -139,3 +139,27 @@ console.log(
   "removeDublicates4",
   removeDublicates3([1, 2, 2, 3, 4, "banana", 1])
 );
+
+//find max element
+
+const findMax = (arr) => {
+  let max = arr[0];
+  arr.forEach((el) => {
+    if (el > max) {
+      max = el;
+      return max;
+    }
+  });
+  return max;
+};
+console.log("findMax", findMax([1, 2, 7, 88]));
+
+//s2
+const arr2 = [2, 3, 7];
+const findMax2 = (arr) => {
+  return arr.reduce((acc, curr) => {
+    return Math.max(acc, curr);
+  }, arr[0]);
+};
+
+console.log("findMax2", findMax2(arr2));
