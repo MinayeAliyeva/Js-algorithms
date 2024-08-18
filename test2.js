@@ -1,6 +1,5 @@
 /*
-["Apple", "Banana", "apple", "Orange", "BANANA"]  
-
+["Apple", "Banana", "apple", "Orange", "BANANA"]
 [{ id: 1 }, { id: 2 }, { id: 1 }, { id: 3 }]
 [[1, 2, 2], [3, 4, [4, 5]], 1]
 [{ id: 1, name: 'A' }, { id: 2, name: 'B' }, { id: 1, name: 'A' }]
@@ -48,7 +47,6 @@ const groupByID = [];
  const groupByID = [{1:[]},{2:[]}]
  const group={3:[]}
 const groupByID = [{1:[]},{2:[]},{3:[]}]
-
 
 step4
 const groupByID = [{1:[]},{2:[]},{3:[]}]
@@ -125,8 +123,84 @@ fiexArr.forEach((el) => {
 });
 console.log("returnUniqueArr", returnUniqueArr);
 
-
 /*
-[1, [2, 3], [2, 3], { a: 1, b: 2 }, { a: 1, b: 2 }] gibi hem alt diziler hem de 
+[1, [2, 3], [2, 3], { a: 1, b: 2 }, { a: 1, b: 2 }] gibi hem alt diziler hem de
 nesneler içeren bir dizide tekrarlanan elemanları nasıl kaldırabilirsiniz?
+*/
+
+//How do you check if an element exists in an array? indexOf() if element dowsnt exists it returns -1
+//Array yuniklesdirmek
+//hem uniklesdir hem arrayleri cikar
+var nestedArray = [1, [2, [3, 4], 5], 6, 6, { name: "Minaya" }];
+function fiixNestedArray(arr) {
+  let newArr = [];
+  const uniqueArr = [];
+  arr?.forEach((value) => {
+    if (Array.isArray(value)) {
+      value = value.flat();
+      if (Array.isArray(value)) {
+        newArr = newArr.concat(fiixNestedArray(value));
+      }
+    } else {
+      newArr.push(value);
+    }
+  });
+  newArr.forEach((el) => {
+    const find = uniqueArr.includes(el);
+    if (!find) {
+      uniqueArr.push(el);
+    }
+  });
+  return uniqueArr;
+}
+console.log(fiixNestedArray(nestedArray));
+
+var nestedArray2 = [
+  { name: "Minaya" },
+  1,
+  [2, [3, 4], 5],
+  6,
+  6,
+  { name: "Minaya" },
+  { name: "Emin" },
+];
+const doUniqueAndReturn = (arr) => {
+  const newArr = [];
+  const uniqueArr = [];
+  arr?.forEach((el) => {
+    if (Array.isArray(el)) {
+      newArr.push(...doUniqueAndReturn(el));
+    } else {
+      newArr.push(el);
+    }
+  });
+  newArr.forEach((el) => {
+    if (typeof el == "object") {
+      const find = uniqueArr.find((findEl) => findEl.name == el.name);
+      if (!find) uniqueArr.push(el);
+    } else {
+      if (!uniqueArr.includes(el)) {
+        uniqueArr.push(el);
+      }
+    }
+  });
+  return uniqueArr;
+};
+console.log(doUniqueAndReturn(nestedArray2));
+/*
+step 1 
+  const newArr = [];
+  el=1
+  else   const newArr = [1];
+  step2
+   const newArr = [1];
+  el=[2, [3, 4], 5]
+  if(Array.isArray(el)) true
+    const newArr = [1,2];
+     el=[3, 4]
+      if(Array.isArray(el)) true
+      el=3
+   const newArr = [1,2,3];
+
+
 */
