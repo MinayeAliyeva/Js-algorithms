@@ -27,16 +27,18 @@ cars.forEach((car) => {
     group = { [car.id]: [] };
     groupById.push(group);
   }
+  console.log("work");
+
   group[car.id].push(car);
 });
 console.log("groupById", groupById);
-
 /*
 step1
 const groupByID = [];
- let group = undefined
+ let group = undefined;
  group={1:[]}
  const groupByID = [{1:[]}]
+ 
 
  step2
  const groupByID = [{1:[]}]
@@ -169,7 +171,7 @@ const doUniqueAndReturn = (arr) => {
   const uniqueArr = [];
   arr?.forEach((el) => {
     if (Array.isArray(el)) {
-      newArr.push(...doUniqueAndReturn(el));
+      doUniqueAndReturn(el);
     } else {
       newArr.push(el);
     }
@@ -186,7 +188,7 @@ const doUniqueAndReturn = (arr) => {
   });
   return uniqueArr;
 };
-console.log(doUniqueAndReturn(nestedArray2));
+console.log("doUniqueAndReturn%%", doUniqueAndReturn(nestedArray2));
 /*
 step 1 
   const newArr = [];
@@ -204,3 +206,40 @@ step 1
 
 
 */
+
+// const nums = [4, 5, 6, 7];
+// const ascSort=nums.reduce((acc, el) => {
+//   const max=acc[0]
+//   if (el > max) {
+//     acc.unshift(el);
+//   } else {
+//     acc.push(el);
+//   }
+//   return acc
+// }, []);
+// console.log("asc", ascSort);
+
+///////////////////////////
+// const asc2 = nums.sort((a, b) => a - b);
+// console.log(asc2);
+
+// const ascArr = [];
+// nums?.forEach((el) => {
+//   const dif = nums[0];
+//   if (dif > el) {
+//     ascArr.push(el);
+//   } else {
+//     ascArr.unshift(el);
+//   }
+// });
+// console.log("forEach asc", ascArr);
+const nums = [4, 5, 6, 7];
+const ascNum = [];
+for (let i = 0; i < nums.length; i++) {
+  for (let j = i + 1; j < nums.length; j++) {
+    if (nums[j] > nums[i]) {
+      if (!ascNum.includes(nums[i])) ascNum.push(nums[i]);
+    }
+  }
+}
+console.log("ascNum", ascNum);
